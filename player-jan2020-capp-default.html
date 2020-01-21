@@ -196,7 +196,7 @@
                     
                     // (13) Populates additional potentially useful data into the flow state
                     annotations: {
-                        "first": "Annotation one",
+                        "first": queryParameters['input1'] != null ? queryParameters['input1'] : 'noInput1',
                         "second": "Annotation two"
                     },
                     navigation: {
