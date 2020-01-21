@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" class="manywho" style="height: 100%;">
+<head>
+    <meta charset="utf-8" />
+    
+    <!-- (1) Uncomment this to optimize for smart watches -->
+    <!-- <meta name="disabled-adaptations" content="watch"> --> 
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+    <link rel="shortcut icon" href="https://assets.manywho.com/img/favicon/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="https://assets.manywho.com/img/favicon/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="https://assets.manywho.com/img/favicon/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="https://assets.manywho.com/img/favicon/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="https://assets.manywho.com/img/favicon/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="https://assets.manywho.com/img/favicon/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="https://assets.manywho.com/img/favicon/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="https://assets.manywho.com/img/favicon/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="https://assets.manywho.com/img/favicon/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://assets.manywho.com/img/favicon/apple-touch-icon-180x180.png" />
+    <link rel="icon" sizes="192x192" href="https://assets.manywho.com/img/favicon/android-icon.png">
+    <meta name="msapplication-square310x310logo" content="https://assets.manywho.com/img/favicon/microsoft-310x310.png">
+
+    <!-- (2) The title tag modifies what shows in the browser tab-->
+    <title>Solutions Default Player</title>
+    <style>
+        .mw-bs .wait-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+            z-index: 1100;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .mw-bs .wait-message {
+            position: relative;
+            text-align: center;
+            margin-top: 1em;
+            display: block;
+            top: 40%;
+            font-size: 2em;
+            padding: 0 2em;
+        }
+
+        /* (3) Simple spinner */
+        .mw-bs .wait-spinner {
+            display: block;
+            position: relative;
+            left: 50%;
+            width: 150px;
+            height: 150px;
+            margin: 200px 0 0 -75px;
+            border-radius: 50%;
+            -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+            animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+            transform: scale(1.75);
+        }
+        
+        .mw-bs .wait-spinner:before {
+            content: '';
+            box-sizing: border-box;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin-top: -10px;
+            margin-left: -10px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            border-top-color: #333;
+            animation: spinner .6s linear infinite;
+        }
+
+        @keyframes spinner {
+          to {transform: rotate(360deg);}
+        }
+    </style>
+</head>
+<body style="height: 100%;">
+    <div id="manywho">
+        <div id="loader" class="mw-bs" style="width: 100%; height: 100%;">
+            <div class="wait-container">
+                <div class="wait-spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://assets.manywho.com/js/vendor/jquery-2.1.4.min.js"></script>
+
+    <script>
+        var manywho = {
+            cdnUrl: 'https://assets.manywho.com',
+            requires: ['core', 'bootstrap3'],
+            initialize: function () {
+
+                var queryParameters = manywho.utils.parseQueryString(window.location.search.substring(1));
+
+                manywho.settings.initialize({
+                    platform: {
+                        uri: '',
+                    },
+                    adminTenantId: 'da497693-4d02-45db-bc08-8ea16d2ccbdf',
+                    
+                    // (4) Define initialization message. Player setting reference: https://github.com/manywho/ui-html5/wiki/Settings
+                    localization: {
+                        initializing: 'Authenticating and loading data....',
+                    },
+                    
+                    // (5) Uncomment to enable local user timezone client side formatting
+                    // i18n: {
+                    //     overrideTimezoneOffset: true
+                    // },
+                    // formatting: {
+                    //     isEnabled: true
+                    // },
+                
+                    // (6) Disable the 'progress on enter' feature 
+                    shortcuts: {
+                        progressOnEnter: false
+                    },
+                    
+                    // (7) Uncomment for chart customizations
+                    // charts: {
+                    //     backgroundColors: ['#42a5f5', '#66bb6a', '#ffa726', '#ab47bc', '#ef5350', '#78909c', '#5c6bc0'],
+                    //     borderColors: ['#42a5f5', '#66bb6a', '#ef5350', '#ab47bc', '#ffa726', '#78909c', '#5c6bc0'],
+                    //     // Line chart options
+                    //     line: {
+                    //         options: {
+                    //             scales: {
+                    //                 yAxes: [{
+                    //                     ticks: {
+                    //                         beginAtZero: false,
+                    //                         // suggestedMin: 30
+                    //                     }
+                    //                 }]
+                    //             }
+                                
+                    //         }
+                    //     },
+                    // },
+                    
+                    // (8) Uncomment to expand page body to full width
+                    // isFullWidth: true,
+                    
+                    // (9) Uncomment to prevent flow from returning to the top of the page as you move through
+                    // isScrollResetEnabled: false,
+                    
+                    
+                    //Back to the standard player settings
+                    playerUrl: [ location.protocol, '//', location.host, location.pathname ].join(''),
+                    joinUrl: [ location.protocol, '//', location.host, location.pathname ].join('')
+                });
+                
+                // (10) Query parameter value-inputs
+                var input1 = queryParameters['input1'];
+                var input2 = queryParameters['input2'];
+                var input3 = queryParameters['input3'];
+                var input4 = queryParameters['input4'];
+                //Declares an array var called 'inputs'
+                var inputs = [];
+                //If each parameter is not empty, it populates the data in the array. We are using the same vars and flow value names (in quotes below) for convenience but those could differ
+                if (input1!=null)
+                   inputs.push({ "input1": input1 });
+                if (input2!=null)
+                   inputs.push({ "input2": input2 });
+                if (input3!=null)
+                   inputs.push({ "input3": input3 });
+                if (input4!=null)
+                   inputs.push({ "input4": input4 });
+                   
+                var jsonInputs = manywho.json.generateFlowInputs(inputs);
+                // End inputs snippet, var jsonInputs is used where noted in the options below
+                
+                var options = {
+                    authentication: {
+                        sessionId: queryParameters['session-token'],
+                        sessionUrl: queryParameters['session-url']
+                    },
+                    navigationElementId: queryParameters['navigation-element-id'],
+                    mode: queryParameters['mode'],
+                    reportingMode: queryParameters['reporting-mode'],
+                    // (11) Allows a query parameter input to determine whether the browser Flow URL is replaced with a join-id
+                    replaceUrl: queryParameters['replace-url'] != null ? queryParameters['replace-url'] : true,
+                    collaboration: {
+                        isEnabled: false
+                    },
+                    inputs: jsonInputs, //Changed from null, to use var declared on line 177
+                    
+                    // (12) Populates additional potentially useful data into the flow state
+                    annotations: {
+                        "first": "Annotation one",
+                        "second": "Annotation two"
+                    },
+                    navigation: {
+                        isFixed: true,
+                        isWizard: false
+                    },
+                    callbacks: [],
+                    // (13) Allows query parameter to define flow theme, with a default other than 'paper'
+                    theme: queryParameters['theme'] != null ? queryParameters['theme'] : 'spacelab'
+                };
+
+                var tenantId = queryParameters['tenant-id'];
+                if (!tenantId) {
+                    tenantId =
+                        window.location.pathname
+                        .split('/')
+                        .filter(function (path) {
+                            return path && path.length > 0;
+                        })[0];
+                }
+
+                manywho.engine.initialize(
+                    tenantId,
+                    queryParameters['flow-id'],
+                    queryParameters['flow-version-id'],
+                    'main',
+                    queryParameters['join'],
+                    queryParameters['authorization'],
+                    options,
+                    queryParameters['initialization']
+                );
+
+            }
+        };
+    </script>
+
+    <script src="https://assets.manywho.com/js/loader.min.js"></script>
+    
+    <!--(14) Adds custom style on top of flow theme style-->
+    <style>
+    /*Boomi logo from URL with small visible label font*/
+    .mw-bs .navbar-brand {
+            background: url(https://files-manywho-com.s3.amazonaws.com/c0284710-c1da-46b5-b12c-bdbc92657577/BoomiLogoRGB.png);
+            background-position: left center;
+            background-repeat: no-repeat;
+            font-size: 9px;
+            font-weight: 500;
+            line-height: 20px;
+            width: 90px;
+            height: 40px;
+            margin: 10px 15px 10px 15px !important;
+            padding: 0px 0px 0px 36px !important;
+            font-weight: bold;
+            background-size: contain;
+        }
+    </style>
+</body>
+</html>
