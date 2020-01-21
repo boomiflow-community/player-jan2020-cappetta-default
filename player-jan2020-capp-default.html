@@ -150,13 +150,15 @@
                     // (9) Uncomment to prevent flow from returning to the top of the page as you move through
                     // isScrollResetEnabled: false,
                     
+                    // (10) Uncomment to show a selection-history as the user navigates through the flow
+                    // history: false,
                     
                     //Back to the standard player settings
                     playerUrl: [ location.protocol, '//', location.host, location.pathname ].join(''),
                     joinUrl: [ location.protocol, '//', location.host, location.pathname ].join('')
                 });
                 
-                // (10) Query parameter value-inputs
+                // (11) Query parameter value-inputs
                 var input1 = queryParameters['input1'];
                 var input2 = queryParameters['input2'];
                 var input3 = queryParameters['input3'];
@@ -184,14 +186,15 @@
                     navigationElementId: queryParameters['navigation-element-id'],
                     mode: queryParameters['mode'],
                     reportingMode: queryParameters['reporting-mode'],
-                    // (11) Allows a query parameter input to determine whether the browser Flow URL is replaced with a join-id
+                    
+                    // (12) Allows a query parameter input to determine whether the browser Flow URL is replaced with a join-id
                     replaceUrl: queryParameters['replace-url'] != null ? queryParameters['replace-url'] : true,
                     collaboration: {
                         isEnabled: false
                     },
-                    inputs: jsonInputs, //Changed from null, to use var declared on line 176
+                    inputs: jsonInputs, //Changed from null, to use var declared on line 178
                     
-                    // (12) Populates additional potentially useful data into the flow state
+                    // (13) Populates additional potentially useful data into the flow state
                     annotations: {
                         "first": "Annotation one",
                         "second": "Annotation two"
@@ -201,7 +204,7 @@
                         isWizard: false
                     },
                     callbacks: [],
-                    // (13) Allows query parameter to define flow theme, with a default other than 'paper'
+                    // (14) Allows query parameter to define flow theme, with a default other than 'paper'
                     theme: queryParameters['theme'] != null ? queryParameters['theme'] : 'spacelab'
                 };
 
@@ -232,7 +235,7 @@
 
     <script src="https://assets.manywho.com/js/loader.min.js"></script>
     
-    <!--(14) Adds custom style on top of flow theme style-->
+    <!--(15) Adds custom style on top of flow theme style-->
     <style>
     /*Boomi logo from URL with small visible label font*/
     .mw-bs .navbar-brand {
